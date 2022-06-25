@@ -5,9 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @SpringBootApplication(exclude = {
@@ -22,7 +20,16 @@ public class LabsApplication {
     }
 
     @GetMapping("/greet")
-    public String gree(@RequestParam(value="name", defaultValue = "World") String name) {
+    public String greet(@RequestParam(value="name", defaultValue = "World") String name) {
         return String.format("Hello %s", name);
+    }
+
+    @PostMapping("/add")
+    public String addStudent(
+            @RequestParam(value="name") String name,
+            @RequestParam(value="email") String email,
+            @RequestParam(value="password") String password,
+            @RequestParam(value="majorId") int majorId) {
+        return String.format("Estudiante agregado: %s: %s", name, email);
     }
 }
